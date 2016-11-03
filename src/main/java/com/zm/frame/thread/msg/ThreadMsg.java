@@ -14,6 +14,9 @@ public class ThreadMsg {
     public int msgType;
     public ThreadMsgBody msgBody;
 
+    private final static String formatStr = "源线程类型：%d, 源线程id：%d, 源task id：%d； " +
+            "目标线程类型：%d, 目标线程id：%d, 目标task id：%d, 消息类型：%d";
+
     public ThreadMsg(int srcThreadType, int srcThreadId, int srcTaskId, int desThreadType,
                      int desThreadId, int desTaskId, int msgType, ThreadMsgBody msgBody) {
         this.srcThreadType = srcThreadType;
@@ -24,5 +27,11 @@ public class ThreadMsg {
         this.desTaskId = desTaskId;
         this.msgType = msgType;
         this.msgBody = msgBody;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(formatStr, srcThreadType, srcThreadId, srcTaskId,
+                desThreadType, desThreadId, desTaskId, msgType);
     }
 }
