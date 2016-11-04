@@ -45,7 +45,7 @@ public class Server {
         }
     }
 
-    public void start() {
+    public void startThreads() {
         Iterator<Map.Entry<Integer, ThreadGroup>> iterator = threadGroupMap.entrySet().iterator();
         Map.Entry<Integer, ThreadGroup> tmp;
         while (iterator.hasNext()) {

@@ -17,13 +17,12 @@ import com.zm.frame.thread.thread.ThreadGroup;
 public class ThreadTest {
 
     public static void main(String[] args) {
-        Server server = Server.getInstance();
-        server.setClassFactory(new MyClassFactory());
+        new MyClassFactory();
 
         new ThreadGroup(MyDef.THREAD_TYPE_SEND, 1, null);
         new ThreadGroup(MyDef.THREAD_TYPE_REC, 2, null);
 
-        server.start();
+        Server.getInstance().startThreads();
     }
 }
 
