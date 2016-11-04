@@ -12,9 +12,9 @@ public class Definition {
     //不明确指定某一个id
     public static final int NONE = -1;
 
-    //thread type
+    //线程类型
 
-    //task type
+    //消息类型
 
-    //msg type
+    //task类型
 }

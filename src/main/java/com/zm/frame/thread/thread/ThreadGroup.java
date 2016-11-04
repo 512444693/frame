@@ -1,4 +1,4 @@
-package com.zm.frame.thread;
+package com.zm.frame.thread.thread;
 
 import com.zm.frame.conf.Definition;
 import com.zm.frame.thread.msg.ThreadMsg;

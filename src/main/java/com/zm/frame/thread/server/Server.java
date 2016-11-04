@@ -1,6 +1,6 @@
 package com.zm.frame.thread.server;
 
-import com.zm.frame.thread.ThreadGroup;
+import com.zm.frame.thread.thread.ThreadGroup;
 import com.zm.frame.thread.msg.ThreadMsg;
 
 import java.util.Iterator;

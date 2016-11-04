@@ -1,7 +1,8 @@
-package com.zm.frame.thread;
+package com.zm.frame.thread.thread;
 
 
 import com.zm.frame.thread.msg.ThreadMsg;
+import com.zm.frame.thread.task.Task;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -35,7 +36,7 @@ public abstract class NoBlockingThread extends BasicThread {
             afterProcessMsg();
             if(delayTime > 0) {
                 try {
-                    Thread.sleep(delayTime);
+                    sleep(delayTime);
                 } catch (InterruptedException e) {
                     log.error("id为" + threadId + "的" + threadType + "类型非阻塞线程"   + "睡眠被中断", e);
                 }
@@ -43,6 +44,13 @@ public abstract class NoBlockingThread extends BasicThread {
         }
     }
 
-    protected abstract void processMsg(ThreadMsg msg);
+    protected void processMsg(ThreadMsg msg) {
+        Task task = tasks.get(msg.desTaskId);
+        if(task != null) {
+            task.processMsg(msg);
+        } else {
+            log.error("处理线程消息失败, 找不到task id为" + msg.desTaskId + "的task");
+        }
+    }
     protected abstract void afterProcessMsg();
 }

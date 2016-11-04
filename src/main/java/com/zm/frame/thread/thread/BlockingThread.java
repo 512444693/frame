@@ -1,7 +1,8 @@
-package com.zm.frame.thread;
+package com.zm.frame.thread.thread;
 
 
 import com.zm.frame.thread.msg.ThreadMsg;
+import com.zm.frame.thread.task.Task;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -41,5 +42,12 @@ public abstract class BlockingThread extends BasicThread {
         }
     }
 
-    protected abstract void processMsg(ThreadMsg msg);
+    protected void processMsg(ThreadMsg msg) {
+        Task task = tasks.get(msg.desTaskId);
+        if(task != null) {
+            task.processMsg(msg);
+        } else {
+            log.error("处理线程消息失败, 找不到task id为" + msg.desTaskId + "的task");
+        }
+    }
 }
