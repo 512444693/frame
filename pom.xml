@@ -50,7 +50,9 @@
             <manifest>
               <classpathPrefix>lib/</classpathPrefix>
               <addClasspath>true</addClasspath>
+              <!--
               <mainClass>com.zm.frame.App</mainClass>
+              -->
             </manifest>
           </archive>
         </configuration>

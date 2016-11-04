@@ -9,8 +9,6 @@ import com.zm.frame.thread.task.Task;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.zm.frame.log.Log.log;
-
 /**
  * Created by Administrator on 2016/7/2.
  */
