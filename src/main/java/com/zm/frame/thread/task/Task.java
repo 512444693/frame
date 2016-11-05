@@ -15,10 +15,14 @@ public abstract class Task {
 
     private final int taskId;
     private final BasicThread thread;
+    private final long createTime = System.currentTimeMillis();
+    //-1则为无超时时间
+    private final int time;
 
-    public Task(int taskId, BasicThread thread) {
+    public Task(int taskId, BasicThread thread, int time) {
         this.taskId = taskId;
         this.thread = thread;
+        this.time = time;
     }
 
     public abstract void processMsg(ThreadMsg msg);
@@ -51,6 +55,27 @@ public abstract class Task {
     }
 
     protected void remove() {
-        thread.removeTask(this.taskId);
+        thread.removeTask(this);
+    }
+
+    public void checkTimeout() {
+        if(time != Definition.NONE) {
+            if((System.currentTimeMillis() - createTime) >= (time * 1000)) {
+                remove();
+            }
+        }
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public boolean isTimeout() {
+        if(time != Definition.NONE) {
+            if((System.currentTimeMillis() - createTime) >= (time * 1000)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

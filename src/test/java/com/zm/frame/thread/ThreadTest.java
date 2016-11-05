@@ -1,5 +1,6 @@
 package com.zm.frame.thread;
 
+import com.zm.frame.conf.Definition;
 import com.zm.frame.thread.msg.StringMsgBody;
 import com.zm.frame.thread.msg.ThreadMsg;
 import com.zm.frame.thread.server.ClassFactory;
@@ -42,13 +43,15 @@ class MySendThread extends NoBlockingThread {
     @Override
     protected void afterProcessMsg() {
         System.out.println("send thread running ...");
+        this.checkTaskTimeout();
         System.out.println("Task size is " + this.getTaskSize());
     }
 
     @Override
     protected void init() {
-        addTask(MyDef.TASK_TYPE_TEST, null);
-        addTask(MyDef.TASK_TYPE_TEST, null);
+        addTask(MyDef.TASK_TYPE_TEST, Definition.NONE, null);
+        addTask(MyDef.TASK_TYPE_TEST, Definition.NONE, null);
+        addTask(MyDef.TASK_TYPE_TIMEOUT, 10, null);
     }
 }
 
@@ -77,8 +80,8 @@ class MyTask extends Task {
     private final static int SECOND_REC = 2;
     private int status = INIT;
 
-    public MyTask(int taskId, BasicThread thread) {
-        super(taskId, thread);
+    public MyTask(int taskId, BasicThread thread, int time) {
+        super(taskId, thread, time);
         sendThreadMsgTo(MyDef.MSG_TYPE_REQ, new StringMsgBody("req 1"),  MyDef.THREAD_TYPE_REC);
         sendThreadMsgTo(MyDef.MSG_TYPE_REQ, new StringMsgBody("req 2"),  MyDef.THREAD_TYPE_REC);
     }
@@ -114,11 +117,19 @@ class MyClassFactory extends ClassFactory {
     }
 
     @Override
-    public Task genTask(int taskType, int taskId, BasicThread thread, String[] args) {
+    public Task genTask(int taskType, int taskId, BasicThread thread, int time, String[] args) {
         Task ret = null;
         switch (taskType) {
             case MyDef.TASK_TYPE_TEST :
-                ret = new MyTask(taskId, thread);
+                ret = new MyTask(taskId, thread, time);
+                break;
+            case MyDef.TASK_TYPE_TIMEOUT :
+                ret = new Task(taskId, thread, time) {
+                    @Override
+                    public void processMsg(ThreadMsg msg) {
+
+                    }
+                };
                 break;
         }
         return ret;
@@ -137,6 +148,7 @@ class MyDef {
 
     //task类型
     public static final int TASK_TYPE_TEST = 1001;
+    public static final int TASK_TYPE_TIMEOUT = 1002;
 
     public static final int NO_BLOCKING_THREAD_SLEEP = 1000;
 }

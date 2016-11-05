@@ -7,6 +7,7 @@ import com.zm.frame.thread.server.ThreadServer;
 import com.zm.frame.thread.task.Task;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -73,13 +74,26 @@ public abstract class BasicThread extends Thread {
         return threadId;
     }
 
-    public void addTask(int taskType, String[] args) {
+    public void addTask(int taskType,int time, String[] args) {
         int taskId = taskIdNo++;
-        this.tasks.put(taskId, threadServer.getClassFactory().genTask(taskType, taskId, this, args));
+        this.tasks.put(taskId, threadServer.getClassFactory().genTask(taskType, taskId, this, time, args));
     }
 
-    public void removeTask(int taskId) {
-        this.tasks.remove(taskId);
+    public void removeTask(Task task) {
+        this.tasks.remove(task.getTaskId());
+    }
+
+    public void checkTaskTimeout() {
+        Iterator<Map.Entry<Integer, Task>> iterator = tasks.entrySet().iterator();
+        Map.Entry<Integer, Task> entry;
+        Task task;
+        while(iterator.hasNext()) {
+            entry = iterator.next();
+            task = entry.getValue();
+            if(task.isTimeout()) {
+                iterator.remove();
+            }
+        }
     }
 
     public int getTaskSize() {

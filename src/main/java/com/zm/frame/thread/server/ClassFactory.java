@@ -11,5 +11,5 @@ public abstract class ClassFactory {
         ThreadServer.getInstance().setClassFactory(this);
     }
     public abstract BasicThread genThread(int threadType, int threadId, String[] args);
-    public abstract Task genTask(int taskType, int taskId, BasicThread thread, String[] args);
+    public abstract Task genTask(int taskType, int taskId, BasicThread thread, int time, String[] args);
 }
