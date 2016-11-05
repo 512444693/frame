@@ -3,7 +3,7 @@ package com.zm.frame.thread.task;
 import com.zm.frame.conf.Definition;
 import com.zm.frame.thread.msg.ThreadMsg;
 import com.zm.frame.thread.msg.ThreadMsgBody;
-import com.zm.frame.thread.server.Server;
+import com.zm.frame.thread.server.ThreadServer;
 import com.zm.frame.thread.thread.BasicThread;
 
 /**
@@ -11,7 +11,7 @@ import com.zm.frame.thread.thread.BasicThread;
  */
 public abstract class Task {
 
-    private Server server = Server.getInstance();
+    private ThreadServer threadServer = ThreadServer.getInstance();
 
     private final int taskId;
     private final BasicThread thread;
@@ -28,7 +28,7 @@ public abstract class Task {
     (int msgType, ThreadMsgBody msgBody, int desThreadType, int desThreadId, int desTaskId) {
         ThreadMsg msg = new ThreadMsg(thread.getThreadType(), thread.getThreadId(), this.taskId,
                 desThreadType, desThreadId, desTaskId, msgType, msgBody);
-        server.sendThreadMsgTo(msg);
+        threadServer.sendThreadMsgTo(msg);
     }
 
     //发送消息，发往非task
@@ -47,7 +47,7 @@ public abstract class Task {
     protected void replayThreadMsg(ThreadMsg msg, int msgType, ThreadMsgBody msgBody) {
         ThreadMsg replyMsg = new ThreadMsg(thread.getThreadType(), thread.getThreadId(), this.taskId,
                 msg.srcThreadType, msg.srcThreadId, msg.srcTaskId, msgType, msgBody);
-        server.sendThreadMsgTo(replyMsg);
+        threadServer.sendThreadMsgTo(replyMsg);
     }
 
     protected void remove() {

@@ -1,6 +1,6 @@
 package com.zm.frame.thread.server;
 
-import com.zm.frame.thread.thread.ThreadGroup;
+import com.zm.frame.thread.thread.MyThreadGroup;
 import com.zm.frame.thread.msg.ThreadMsg;
 
 import java.util.Iterator;
@@ -10,17 +10,18 @@ import static com.zm.frame.log.Log.log;
 
 /**
  * Created by Administrator on 2016/7/2.
+ * 服务于线程间通讯
  */
-public class Server {
+public class ThreadServer {
 
-    private static final Server instance = new Server();
+    private static final ThreadServer instance = new ThreadServer();
 
     private ClassFactory factory;
 
     //thread type and thread group
-    private ConcurrentHashMap<Integer, ThreadGroup> threadGroupMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, MyThreadGroup> threadGroupMap = new ConcurrentHashMap<>();
 
-    public static Server getInstance() {
+    public static ThreadServer getInstance() {
         return instance;
     }
 
@@ -32,12 +33,12 @@ public class Server {
         return factory;
     }
 
-    public void addThreadGroup(ThreadGroup threadGroup) {
+    public void addThreadGroup(MyThreadGroup threadGroup) {
         threadGroupMap.put(threadGroup.getThreadType(), threadGroup);
     }
 
     public void sendThreadMsgTo(ThreadMsg msg) {
-        ThreadGroup threadGroup = threadGroupMap.get(msg.desThreadType);
+        MyThreadGroup threadGroup = threadGroupMap.get(msg.desThreadType);
         if(threadGroup != null) {
             threadGroup.putThreadMsg(msg);
         } else {
@@ -46,8 +47,8 @@ public class Server {
     }
 
     public void startThreads() {
-        Iterator<Map.Entry<Integer, ThreadGroup>> iterator = threadGroupMap.entrySet().iterator();
-        Map.Entry<Integer, ThreadGroup> tmp;
+        Iterator<Map.Entry<Integer, MyThreadGroup>> iterator = threadGroupMap.entrySet().iterator();
+        Map.Entry<Integer, MyThreadGroup> tmp;
         while (iterator.hasNext()) {
             tmp = iterator.next();
             tmp.getValue().start();

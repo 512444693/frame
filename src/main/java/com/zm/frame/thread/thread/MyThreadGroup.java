@@ -2,16 +2,16 @@ package com.zm.frame.thread.thread;
 
 import com.zm.frame.conf.Definition;
 import com.zm.frame.thread.msg.ThreadMsg;
-import com.zm.frame.thread.server.Server;
+import com.zm.frame.thread.server.ThreadServer;
 
 import static com.zm.frame.log.Log.log;
 
 /**
  * Created by Administrator on 2016/10/30.
  */
-public class ThreadGroup {
+public class MyThreadGroup {
 
-    private Server server = Server.getInstance();
+    private ThreadServer threadServer = ThreadServer.getInstance();
 
     private int threadType;
     private int num;
@@ -19,14 +19,14 @@ public class ThreadGroup {
 
     private int index = 0;
 
-    public ThreadGroup(int threadType, int num, String[] args) {
+    public MyThreadGroup(int threadType, int num, String[] args) {
         this.threadType = threadType;
         this.num = num;
         threads = new BasicThread[num];
         for(int i = 0; i < num; i++) {
-            threads[i] = server.getClassFactory().genThread(threadType, i, args);
+            threads[i] = threadServer.getClassFactory().genThread(threadType, i, args);
         }
-        server.addThreadGroup(this);
+        threadServer.addThreadGroup(this);
     }
 
     public void putThreadMsg(ThreadMsg msg) {

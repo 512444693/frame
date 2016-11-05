@@ -3,12 +3,12 @@ package com.zm.frame.thread;
 import com.zm.frame.thread.msg.StringMsgBody;
 import com.zm.frame.thread.msg.ThreadMsg;
 import com.zm.frame.thread.server.ClassFactory;
-import com.zm.frame.thread.server.Server;
+import com.zm.frame.thread.server.ThreadServer;
 import com.zm.frame.thread.task.Task;
 import com.zm.frame.thread.thread.BasicThread;
 import com.zm.frame.thread.thread.BlockingThread;
 import com.zm.frame.thread.thread.NoBlockingThread;
-import com.zm.frame.thread.thread.ThreadGroup;
+import com.zm.frame.thread.thread.MyThreadGroup;
 
 
 /**
@@ -19,10 +19,10 @@ public class ThreadTest {
     public static void main(String[] args) {
         new MyClassFactory();
 
-        new ThreadGroup(MyDef.THREAD_TYPE_SEND, 1, null);
-        new ThreadGroup(MyDef.THREAD_TYPE_REC, 2, null);
+        new MyThreadGroup(MyDef.THREAD_TYPE_SEND, 1, null);
+        new MyThreadGroup(MyDef.THREAD_TYPE_REC, 2, null);
 
-        Server.getInstance().startThreads();
+        ThreadServer.getInstance().startThreads();
     }
 }
 

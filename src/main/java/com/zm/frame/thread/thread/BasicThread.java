@@ -3,7 +3,7 @@ package com.zm.frame.thread.thread;
 import com.zm.frame.conf.Definition;
 import com.zm.frame.thread.msg.ThreadMsg;
 import com.zm.frame.thread.msg.ThreadMsgBody;
-import com.zm.frame.thread.server.Server;
+import com.zm.frame.thread.server.ThreadServer;
 import com.zm.frame.thread.task.Task;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public abstract class BasicThread extends Thread {
 
-    private Server server = Server.getInstance();
+    private ThreadServer threadServer = ThreadServer.getInstance();
     protected int threadType;
     protected int threadId;
     protected Map<Integer, Task> tasks;
@@ -43,7 +43,7 @@ public abstract class BasicThread extends Thread {
     (int msgType, ThreadMsgBody msgBody, int desThreadType, int desThreadId, int desTaskId) {
         ThreadMsg msg = new ThreadMsg(this.threadType, this.threadId, Definition.NONE,
                 desThreadType, desThreadId, desTaskId, msgType, msgBody);
-        server.sendThreadMsgTo(msg);
+        threadServer.sendThreadMsgTo(msg);
     }
 
     //发送消息，发往非task
@@ -62,7 +62,7 @@ public abstract class BasicThread extends Thread {
     protected void replayThreadMsg(ThreadMsg msg, int msgType, ThreadMsgBody msgBody) {
         ThreadMsg replyMsg = new ThreadMsg(this.threadType, this.threadId, Definition.NONE,
                 msg.srcThreadType, msg.srcThreadId, msg.srcTaskId, msgType, msgBody);
-        server.sendThreadMsgTo(replyMsg);
+        threadServer.sendThreadMsgTo(replyMsg);
     }
 
     public int getThreadType() {
@@ -75,7 +75,7 @@ public abstract class BasicThread extends Thread {
 
     public void addTask(int taskType, String[] args) {
         int taskId = taskIdNo++;
-        this.tasks.put(taskId, server.getClassFactory().genTask(taskType, taskId, this, args));
+        this.tasks.put(taskId, threadServer.getClassFactory().genTask(taskType, taskId, this, args));
     }
 
     public void removeTask(int taskId) {
