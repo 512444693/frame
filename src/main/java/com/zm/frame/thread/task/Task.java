@@ -58,14 +58,6 @@ public abstract class Task {
         thread.removeTask(this);
     }
 
-    public void checkTimeout() {
-        if(time != Definition.NONE) {
-            if((System.currentTimeMillis() - createTime) >= (time * 1000)) {
-                remove();
-            }
-        }
-    }
-
     public int getTaskId() {
         return taskId;
     }

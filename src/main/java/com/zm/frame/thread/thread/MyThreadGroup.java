@@ -29,6 +29,7 @@ public class MyThreadGroup {
         threadServer.addThreadGroup(this);
     }
 
+    //TODO : 给所有线程发送消息；给某个类型的所有线程发送消息
     public void putThreadMsg(ThreadMsg msg) {
         //为-1，轮询
         if(msg.desThreadId == Definition.NONE) {

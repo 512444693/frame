@@ -34,6 +34,7 @@ public abstract class BasicThread extends Thread {
     }
 
     protected abstract void init();
+    //TODO : 处理task超时消息
     protected abstract void process();
 
     // 供ThreadGroup使用，默认什么也不做
