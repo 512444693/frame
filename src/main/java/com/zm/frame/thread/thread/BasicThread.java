@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.zm.frame.conf.Definition.MSG_TYPE_CHECK_TASK_TIMEOUT;
+import static com.zm.frame.log.Log.log;
+
 /**
  * Created by Administrator on 2016/7/2.
  */
@@ -34,8 +37,35 @@ public abstract class BasicThread extends Thread {
     }
 
     protected abstract void init();
-    //TODO : 处理task超时消息
+
     protected abstract void process();
+
+    protected void processMsg(ThreadMsg msg) {
+        if (msg.desTaskId == Definition.NONE) {
+            threadProcessMsg(msg);
+        } else {
+            taskProcessMsg(msg);
+        }
+    }
+
+    protected void threadProcessMsg(ThreadMsg msg) {
+        switch (msg.msgType) {
+            case MSG_TYPE_CHECK_TASK_TIMEOUT:
+                checkTaskTimeout();
+                break;
+            default:
+                log.error("消息类型错误：" + msg.msgType);
+        }
+    }
+
+    protected void taskProcessMsg(ThreadMsg msg) {
+        Task task = tasks.get(msg.desTaskId);
+        if(task != null) {
+            task.processMsg(msg);
+        } else {
+            log.error("处理线程消息失败, 找不到task id为" + msg.desTaskId + "的task");
+        }
+    }
 
     // 供ThreadGroup使用，默认什么也不做
     public void putThreadMsg(ThreadMsg msg){}
@@ -102,4 +132,5 @@ public abstract class BasicThread extends Thread {
     public int getTaskSize() {
         return tasks.size();
     }
+    //TODO : 写一个定时线程，给所有线程定时发消息检查任务是否超时
 }

@@ -12,9 +12,10 @@ public class Definition {
     //不明确指定某一个id
     public static final int NONE = -1;
 
-    //线程类型
+    //线程类型；约定框架使用101-199，程序使用1001-1999
 
-    //消息类型
+    //消息类型；约定框架使用201-299，程序使用2001-2999
+    public static final int MSG_TYPE_CHECK_TASK_TIMEOUT = 201;
 
-    //task类型
+    //task类型；约定框架使用301-399，程序使用3001-3999
 }

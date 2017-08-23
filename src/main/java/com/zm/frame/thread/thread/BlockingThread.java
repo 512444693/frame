@@ -1,6 +1,7 @@
 package com.zm.frame.thread.thread;
 
 
+import com.zm.frame.conf.Definition;
 import com.zm.frame.thread.msg.ThreadMsg;
 import com.zm.frame.thread.task.Task;
 
@@ -39,15 +40,6 @@ public abstract class BlockingThread extends BasicThread {
             } catch (InterruptedException e) {
                 log.error("id为" + threadId + "的" + threadType + "类型阻塞线程"  + "取消息中断异常", e);
             }
-        }
-    }
-
-    protected void processMsg(ThreadMsg msg) {
-        Task task = tasks.get(msg.desTaskId);
-        if(task != null) {
-            task.processMsg(msg);
-        } else {
-            log.error("处理线程消息失败, 找不到task id为" + msg.desTaskId + "的task");
         }
     }
 }

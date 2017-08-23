@@ -16,7 +16,7 @@ public abstract class Task {
     private final int taskId;
     private final BasicThread thread;
     private final long createTime = System.currentTimeMillis();
-    //-1则为无超时时间
+    //-1则为无超时时间，超时单位为秒
     private final int time;
 
     public Task(int taskId, BasicThread thread, int time) {

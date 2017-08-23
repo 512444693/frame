@@ -46,6 +46,7 @@ public class ThreadServer {
         }
     }
 
+    // TODO : 按照java8重写框架
     public void startThreads() {
         Iterator<Map.Entry<Integer, MyThreadGroup>> iterator = threadGroupMap.entrySet().iterator();
         Map.Entry<Integer, MyThreadGroup> tmp;

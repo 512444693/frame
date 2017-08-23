@@ -44,13 +44,5 @@ public abstract class NoBlockingThread extends BasicThread {
         }
     }
 
-    protected void processMsg(ThreadMsg msg) {
-        Task task = tasks.get(msg.desTaskId);
-        if(task != null) {
-            task.processMsg(msg);
-        } else {
-            log.error("处理线程消息失败, 找不到task id为" + msg.desTaskId + "的task");
-        }
-    }
     protected abstract void afterProcessMsg();
 }

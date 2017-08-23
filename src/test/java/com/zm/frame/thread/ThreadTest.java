@@ -103,7 +103,7 @@ class MyTask extends Task {
 class MyClassFactory extends ClassFactory {
 
     @Override
-    public BasicThread genThread(int threadType, int threadId, String[] args) {
+    public BasicThread genThread(int threadType, int threadId, Object arg) {
         BasicThread ret = null;
         switch (threadType) {
             case MyDef.THREAD_TYPE_SEND :
@@ -117,7 +117,7 @@ class MyClassFactory extends ClassFactory {
     }
 
     @Override
-    public Task genTask(int taskType, int taskId, BasicThread thread, int time, String[] args) {
+    public Task genTask(int taskType, int taskId, BasicThread thread, int time, Object arg) {
         Task ret = null;
         switch (taskType) {
             case MyDef.TASK_TYPE_TEST :
