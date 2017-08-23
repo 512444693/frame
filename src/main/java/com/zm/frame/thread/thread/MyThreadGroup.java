@@ -19,12 +19,12 @@ public class MyThreadGroup {
 
     private int index = 0;
 
-    public MyThreadGroup(int threadType, int num, String[] args) {
+    public MyThreadGroup(int threadType, int num, Object arg) {
         this.threadType = threadType;
         this.num = num;
         threads = new BasicThread[num];
         for(int i = 0; i < num; i++) {
-            threads[i] = threadServer.getClassFactory().genThread(threadType, i, args);
+            threads[i] = threadServer.getClassFactory().genThread(threadType, i, arg);
         }
         threadServer.addThreadGroup(this);
     }
