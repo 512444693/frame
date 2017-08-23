@@ -94,9 +94,19 @@ class MyTask extends Task {
         } else if (status == FIRST_REC) {
             status = SECOND_REC;
             System.out.println("FINISH SECOND REC !!!");
-            this.remove();
+            this.removeSelfFromThread();
             System.out.println("DELETE ITSELF !!!");
         }
+    }
+
+    @Override
+    protected void init() {
+
+    }
+
+    @Override
+    protected void destroy() {
+
     }
 }
 
@@ -127,6 +137,16 @@ class MyClassFactory extends ClassFactory {
                 ret = new Task(taskId, thread, time) {
                     @Override
                     public void processMsg(ThreadMsg msg) {
+
+                    }
+
+                    @Override
+                    protected void init() {
+
+                    }
+
+                    @Override
+                    protected void destroy() {
 
                     }
                 };

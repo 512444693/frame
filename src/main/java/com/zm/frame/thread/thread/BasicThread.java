@@ -34,6 +34,7 @@ public abstract class BasicThread extends Thread {
     public void run() {
         init();
         process();
+        log.error("线程" + threadType + ":" + threadId + "异常退出!!!");
     }
 
     protected abstract void init();
