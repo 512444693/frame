@@ -110,10 +110,12 @@ public abstract class BasicThread extends Thread {
         int taskId = taskIdNo++;
         Task task = threadServer.getClassFactory().genTask(taskType, taskId, this, time, arg);
         this.tasks.put(taskId, task);
+        task.init();
         return task;
     }
 
     public void removeTask(Task task) {
+        task.destroy();
         this.tasks.remove(task.getTaskId());
     }
 

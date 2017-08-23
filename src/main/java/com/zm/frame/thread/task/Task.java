@@ -23,7 +23,6 @@ public abstract class Task {
         this.taskId = taskId;
         this.thread = thread;
         this.time = time;
-        this.init();
     }
 
     public abstract void processMsg(ThreadMsg msg);
@@ -56,7 +55,6 @@ public abstract class Task {
     }
 
     protected void removeSelfFromThread() {
-        this.destroy();
         thread.removeTask(this);
     }
 
@@ -74,7 +72,7 @@ public abstract class Task {
         return false;
     }
 
-    protected abstract void init();
+    public abstract void init();
 
-    protected abstract void destroy();
+    public abstract void destroy();
 }
