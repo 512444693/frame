@@ -71,5 +71,5 @@ public abstract class Task {
         return false;
     }
 
-    protected abstract void init();
+    public abstract void init();
 }
