@@ -105,9 +105,9 @@ public abstract class BasicThread extends Thread {
         return threadId;
     }
 
-    public Task addTask(int taskType,int time, String[] args) {
+    public Task addTask(int taskType,int time, Object arg) {
         int taskId = taskIdNo++;
-        Task task = threadServer.getClassFactory().genTask(taskType, taskId, this, time, args);
+        Task task = threadServer.getClassFactory().genTask(taskType, taskId, this, time, arg);
         this.tasks.put(taskId, task);
         return task;
     }
