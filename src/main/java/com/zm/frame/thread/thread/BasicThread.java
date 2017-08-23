@@ -41,6 +41,7 @@ public abstract class BasicThread extends Thread {
 
     protected abstract void process();
 
+    //线程和Task处理消息
     protected void processMsg(ThreadMsg msg) {
         if (msg.desTaskId == Definition.NONE) {
             threadProcessMsg(msg);
@@ -49,6 +50,7 @@ public abstract class BasicThread extends Thread {
         }
     }
 
+    //线程默认处理"检查Task超时"消息
     protected void threadProcessMsg(ThreadMsg msg) {
         switch (msg.msgType) {
             case MSG_TYPE_CHECK_TASK_TIMEOUT:
@@ -59,6 +61,7 @@ public abstract class BasicThread extends Thread {
         }
     }
 
+    //Task处理消息
     protected void taskProcessMsg(ThreadMsg msg) {
         Task task = tasks.get(msg.desTaskId);
         if(task != null) {
