@@ -70,4 +70,6 @@ public abstract class Task {
         }
         return false;
     }
+
+    protected abstract void init();
 }
