@@ -130,6 +130,7 @@ public abstract class BasicThread extends Thread {
             entry = iterator.next();
             task = entry.getValue();
             if(task.isTimeout()) {
+                entry.getValue().destroy();
                 iterator.remove();
             }
         }
