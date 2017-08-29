@@ -67,7 +67,7 @@ public class HttpClientUtils {
             if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 in = new BufferedReader(
                         new InputStreamReader(conn.getInputStream()));
-                String tmp = "";
+                String tmp;
                 while ((tmp = in.readLine()) != null) {
                     ret += tmp + "\r\n";
                 }

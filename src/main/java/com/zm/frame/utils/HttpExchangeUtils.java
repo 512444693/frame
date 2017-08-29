@@ -41,7 +41,7 @@ public class HttpExchangeUtils {
         BufferedReader in = null;
         try {
             in =  new BufferedReader(new InputStreamReader(t.getRequestBody()));
-            String tmp = "";
+            String tmp;
             while ((tmp = in.readLine()) != null) {
                 ret += tmp + "\r\n";
             }

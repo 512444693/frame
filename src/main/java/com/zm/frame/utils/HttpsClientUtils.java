@@ -28,7 +28,7 @@ public class HttpsClientUtils {
             if(conn.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                 in = new BufferedReader(
                         new InputStreamReader(conn.getInputStream()));
-                String tmp = "";
+                String tmp;
                 while ((tmp = in.readLine()) != null) {
                     ret += tmp + "\r\n";
                 }
@@ -67,7 +67,7 @@ public class HttpsClientUtils {
             if(conn.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                 in = new BufferedReader(
                         new InputStreamReader(conn.getInputStream()));
-                String tmp = "";
+                String tmp;
                 while ((tmp = in.readLine()) != null) {
                     ret += tmp + "\r\n";
                 }

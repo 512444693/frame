@@ -100,12 +100,12 @@ class MyTask extends Task {
     }
 
     @Override
-    protected void init() {
+    public void init() {
 
     }
 
     @Override
-    protected void destroy() {
+    public void destroy() {
 
     }
 }
@@ -141,12 +141,12 @@ class MyClassFactory extends ClassFactory {
                     }
 
                     @Override
-                    protected void init() {
+                    public void init() {
 
                     }
 
                     @Override
-                    protected void destroy() {
+                    public void destroy() {
 
                     }
                 };

@@ -64,7 +64,7 @@ public class Config {
 
     //单独写一个函数是为了测试
     protected InputStream getInputStream(String filePath) {
-        InputStream ret = null;
+        InputStream ret;
         try {
             ret = new FileInputStream(filePath);
         } catch (FileNotFoundException e) {

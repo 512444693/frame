@@ -1,9 +1,6 @@
 package com.zm.frame.thread.thread;
 
-
-import com.zm.frame.conf.Definition;
 import com.zm.frame.thread.msg.ThreadMsg;
-import com.zm.frame.thread.task.Task;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
