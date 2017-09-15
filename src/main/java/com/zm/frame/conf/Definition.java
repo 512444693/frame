@@ -18,4 +18,6 @@ public class Definition {
     public static final int MSG_TYPE_CHECK_TASK_TIMEOUT = 201;
 
     //task类型；约定框架使用301-399，程序使用3001-3999
+
+    //其他类型; 约定框架使用401-999, 程序使用4001-
 }
