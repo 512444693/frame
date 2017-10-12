@@ -33,8 +33,14 @@ public abstract class BasicThread extends Thread {
     @Override
     public void run() {
         init();
-        process();
-        log.error("线程" + threadType + ":" + threadId + "异常退出!!!");
+        while(true) {
+            try {
+                process();
+            } catch (Exception e) {
+            log.error("id为" + threadId + "的" + threadType + "类型线程抓到异常", e);
+            }
+        }
+        //log.error("线程" + threadType + ":" + threadId + "异常退出!!!");
     }
 
     protected abstract void init();
